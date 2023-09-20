@@ -1,0 +1,41 @@
+#include <SFML/Graphics.hpp>
+
+int main() {
+    // Configurações da janela
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Escala de Objeto");
+
+    // Objeto a ser escalado (neste exemplo, um quadrado)
+    sf::RectangleShape objeto(sf::Vector2f(50, 50));
+    objeto.setFillColor(sf::Color::Blue);
+
+    // Posição do ponto de escala (centro do objeto)
+    sf::Vector2f pontoDeEscala(25, 25);
+
+    // Fatores de escala (x e y)
+    float escalaX = 1.5f; // Escala horizontal (aumentar para aumentar a largura)
+    float escalaY = 0.5f; // Escala vertical (aumentar para aumentar a altura)
+
+    while (window.isOpen()) {
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
+                window.close();
+            }
+        }
+
+        // Aplica a escala
+        sf::Transform transform;
+        transform.scale(escalaX, escalaY, pontoDeEscala);
+        objeto.setPosition(transform.transformPoint(objeto.getPosition()));
+        objeto.setScale(escalaX, escalaY);
+
+        window.clear(sf::Color::White);
+
+        // Desenha o objeto na janela
+        window.draw(objeto);
+
+        window.display();
+    }
+
+    return 0;
+}
