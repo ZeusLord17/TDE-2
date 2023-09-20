@@ -1,0 +1,38 @@
+#include <SFML/Graphics.hpp>
+
+int main() {
+    // Configurações da janela
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Reflexão de Objeto");
+
+    // Objeto a ser refletido (neste exemplo, um quadrado)
+    sf::RectangleShape objeto(sf::Vector2f(50, 50));
+    objeto.setFillColor(sf::Color::Blue);
+
+    // Eixo de reflexão (X ou Y)
+    bool reflexaoNoEixoX = true; // Defina como true para reflexão no eixo X, false para reflexão no eixo Y
+
+    while (window.isOpen()) {
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
+                window.close();
+            }
+        }
+
+        // Aplica a reflexão
+        if (reflexaoNoEixoX) {
+            objeto.setScale(1.0f, -1.0f); // Reflexão no eixo X
+        } else {
+            objeto.setScale(-1.0f, 1.0f); // Reflexão no eixo Y
+        }
+
+        window.clear(sf::Color::White);
+
+        // Desenha o objeto na janela
+        window.draw(objeto);
+
+        window.display();
+    }
+
+    return 0;
+}
