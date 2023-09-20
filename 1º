@@ -1,0 +1,43 @@
+import pygame
+import sys
+
+# Inicializa o Pygame
+pygame.init()
+
+# Configurações da janela
+width, height = 800, 600
+window = pygame.display.set_mode((width, height))
+pygame.display.set_caption('Translação de Objeto')
+
+# Cores
+white = (255, 255, 255)
+blue = (0, 0, 255)
+
+# Posição inicial do objeto
+x, y = 100, 100
+
+# Deslocamento (translação) na direção x e y
+dx, dy = 5, 5
+
+# Loop principal
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+
+    # Limpa a tela
+    window.fill(white)
+
+    # Desenha o objeto (neste exemplo, um quadrado)
+    pygame.draw.rect(window, blue, (x, y, 50, 50))
+
+    # Atualiza a posição do objeto com base no deslocamento
+    x += dx
+    y += dy
+
+    # Atualiza a tela
+    pygame.display.flip()
+
+    # Define um atraso (velocidade de translação)
+    pygame.time.delay(30)
