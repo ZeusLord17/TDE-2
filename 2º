@@ -1,0 +1,40 @@
+#include <SFML/Graphics.hpp>
+#include <cmath>
+
+int main() {
+    // Configurações da janela
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Rotação de Objeto");
+
+    // Objeto a ser rotacionado (neste exemplo, um quadrado)
+    sf::RectangleShape objeto(sf::Vector2f(50, 50));
+    objeto.setFillColor(sf::Color::Blue);
+
+    // Posição do ponto de rotação (centro do objeto)
+    sf::Vector2f pontoDeRotacao(25, 25);
+
+    // Ângulo de rotação (em graus)
+    float angulo = 0.5f; // Altere o valor para a quantidade desejada de rotação
+
+    while (window.isOpen()) {
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
+                window.close();
+            }
+        }
+
+        // Aplica a rotação
+        sf::Transform transform;
+        transform.rotate(angulo, pontoDeRotacao);
+        objeto.setPosition(transform.transformPoint(objeto.getPosition()));
+
+        window.clear(sf::Color::White);
+
+        // Desenha o objeto na janela
+        window.draw(objeto);
+
+        window.display();
+    }
+
+    return 0;
+}
