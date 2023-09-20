@@ -1,43 +1,41 @@
-import pygame
-import sys
+#include <SFML/Graphics.hpp>
 
-# Inicializa o Pygame
-pygame.init()
+int main() {
+    // Configurações da janela
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Translação de Objeto");
 
-# Configurações da janela
-width, height = 800, 600
-window = pygame.display.set_mode((width, height))
-pygame.display.set_caption('Translação de Objeto')
+    // Objeto a ser transladado (neste exemplo, um quadrado)
+    sf::RectangleShape objeto(sf::Vector2f(50, 50));
+    objeto.setFillColor(sf::Color::Blue);
 
-# Cores
-white = (255, 255, 255)
-blue = (0, 0, 255)
+    // Posição inicial do objeto
+    float x = 100.0f;
+    float y = 100.0f;
 
-# Posição inicial do objeto
-x, y = 100, 100
+    // Deslocamento (translação) na direção x e y
+    float dx = 5.0f;
+    float dy = 5.0f;
 
-# Deslocamento (translação) na direção x e y
-dx, dy = 5, 5
+    while (window.isOpen()) {
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
+                window.close();
+            }
+        }
 
-# Loop principal
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
+        // Atualiza a posição do objeto com base no deslocamento
+        x += dx;
+        y += dy;
+        objeto.setPosition(x, y);
 
-    # Limpa a tela
-    window.fill(white)
+        window.clear(sf::Color::White);
 
-    # Desenha o objeto (neste exemplo, um quadrado)
-    pygame.draw.rect(window, blue, (x, y, 50, 50))
+        // Desenha o objeto na janela
+        window.draw(objeto);
 
-    # Atualiza a posição do objeto com base no deslocamento
-    x += dx
-    y += dy
+        window.display();
+    }
 
-    # Atualiza a tela
-    pygame.display.flip()
-
-    # Define um atraso (velocidade de translação)
-    pygame.time.delay(30)
+    return 0;
+}
